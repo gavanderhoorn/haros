@@ -1,12 +1,13 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(haros)
 
-find_package(catkin REQUIRED)
-catkin_package(CFG_EXTRAS haros-extras.cmake)
-install(DIRECTORY cmake
-  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
-)
+find_package(catkin REQUIRED COMPONENTS catkin_pip)
 
-install(DIRECTORY harosviz
-  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
-)
+catkin_pip_python_setup()
+
+catkin_pip_requirements(${CMAKE_CURRENT_SOURCE_DIR}/reqs.txt)
+
+catkin_pip_package(haros)
+
+# this depends on gavanderhoorn/catkin_pip@947dd38
+catkin_package(CFG_EXTRAS haros-extras.cmake)
