@@ -3,7 +3,7 @@ if (_HAROS_EXTRAS_INCLUDED_)
 endif()
 set(_HAROS_EXTRAS_INCLUDED_ TRUE)
 
-set(HAROS_REPORT_LOCATION "${CATKIN_DEVEL_PREFIX}/haros_report_${PROJECT_NAME}")
+set(HAROS_REPORT_LOCATION "${CMAKE_CURRENT_BINARY_DIR}/haros_report")
 
 macro(_haros_create_targets)
   if (NOT TARGET haros_report)
@@ -19,8 +19,7 @@ endmacro()
 function(haros_report)
   _haros_create_targets()
   add_custom_command(TARGET haros_report_${PROJECT_NAME} POST_BUILD
-        WORKING_DIRECTORY ${PROJECT_SOURCE_DIR} 
-        COMMAND haros analyse
+        COMMAND haros -C ${PROJECT_SOURCE_DIR} analyse
         COMMAND rm -Rf ${HAROS_REPORT_LOCATION}
-        COMMAND cp -Rv ~/.haros/viz ${HAROS_REPORT_LOCATION})
+        COMMAND cp -R ~/.haros/viz ${HAROS_REPORT_LOCATION})
 endfunction()
