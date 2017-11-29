@@ -19,7 +19,6 @@ endmacro()
 function(haros_report)
   _haros_create_targets()
   add_custom_command(TARGET haros_report_${PROJECT_NAME} POST_BUILD
-        COMMAND haros -C ${PROJECT_SOURCE_DIR} analyse
-        COMMAND rm -Rf ${HAROS_REPORT_LOCATION}
-        COMMAND cp -R ~/.haros/viz ${HAROS_REPORT_LOCATION})
+        COMMAND haros init
+        COMMAND haros -C ${PROJECT_SOURCE_DIR} analyse -t ${HAROS_REPORT_LOCATION})
 endfunction()
